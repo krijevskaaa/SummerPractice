@@ -7,31 +7,29 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SummerPractice.nbu
+namespace SummerPractice.Nbu
 {
     class NbuAPI
     {
-        public string s1 = "";
-        public static List<Currency> nbu1;
+        //public static List<Currency> nbu1;
         public static List<Currency> GetCurrencyToday()
         {
-        
             WebRequest request = WebRequest.Create("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json");
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             string s1 = reader.ReadToEnd();
-            nbu1 = JsonConvert.DeserializeObject<List<Currency>>(s1);
+            List<Currency> nbu1 = JsonConvert.DeserializeObject<List<Currency>>(s1);
             return nbu1;
         }
-        public static List<Currency> GetCurrencyDate(DateTime date)
+        public static List<Currency> GetCurrencyDate(string date)
         {
             WebRequest request = WebRequest.Create("https://bank.gov.ua/NBUStatService/v1/statdirectory/exchangenew?json&&date=" + date);
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             string s1 = reader.ReadToEnd();
-            nbu1 = JsonConvert.DeserializeObject<List<Currency>>(s1);
+            List<Currency> nbu1 = JsonConvert.DeserializeObject<List<Currency>>(s1);
             return nbu1;
         }
     }
